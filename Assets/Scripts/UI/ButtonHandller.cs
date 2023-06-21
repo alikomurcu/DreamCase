@@ -29,6 +29,7 @@ public class ButtonHandller : MonoBehaviour
     {
         // load scene
         GameManager.Instance.currentLevel = level;
+        GameManager.Instance.SetGrid();
         SceneManager.LoadScene("SampleScene");
         Debug.Log("Sample Scene is loaded with level " + level);
     }

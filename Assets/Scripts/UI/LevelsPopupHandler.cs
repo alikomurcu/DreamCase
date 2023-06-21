@@ -34,6 +34,7 @@ public class LevelsPopupHandler : MonoBehaviour
             // set the instance
             Instance = this;
         }
+        scrollViewObject.SetActive(false);  // initially set the scroll view to inactive
     }
 
     public void SetLevelsPopup()

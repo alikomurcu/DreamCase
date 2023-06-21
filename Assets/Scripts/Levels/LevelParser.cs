@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class LevelParser : MonoBehaviour
 {
+    /*
+     * This class is for parsing the levels, from the RM_A$(levelnumber) files.
+     */
     // Singleton 
     public static LevelParser Instance { get; private set; }
     
@@ -20,10 +23,11 @@ public class LevelParser : MonoBehaviour
         }
     }
     // read from the file and create the grid
-    public Grid ParseLevel(string levelName)
+    public Grid ParseLevel(int levelNumber)
     {
+        string levelNumStr = levelNumber.ToString();
         // read the file
-        string[] lines = File.ReadAllLines("Assets/Levels/RM_A" + levelName);
+        string[] lines = File.ReadAllLines("Assets/Levels/RM_A" + levelNumStr);
         // get the level number
         string[] levelstr = lines[0].Split(' ');
         int level = int.Parse(levelstr[1]);
@@ -37,21 +41,11 @@ public class LevelParser : MonoBehaviour
         string[] movesstr = lines[3].Split(' ');
         int moves = int.Parse(movesstr[1]);
         // create the grid
-        Grid grid = new Grid(width, height);
+        Grid grid = new Grid();
         // fill the grid
         string[] gridstr = lines[4].Split(' ');
         string[] gridcolors = gridstr[1].Split(',');
-        
-        for (int j = 0; j < height; j++)
-        {
-            for (int i = 0; i < width; i++)
-            {
-                Cell cell = GameManager.Instance.cellFactory.CreateCell(gridcolors[j*width+i]);
-                cell.gridPos = new Vector2(i, j);
-                grid.grid[i, j] = cell;
-            }
-        }
-
+        grid.CreateGrid(width, height, gridcolors);
         return grid;
     }
 }
