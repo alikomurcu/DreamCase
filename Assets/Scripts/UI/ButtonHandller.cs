@@ -1,0 +1,43 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+public class ButtonHandller : MonoBehaviour
+{
+    // Singleton instance
+    public static ButtonHandller Instance { get; private set; }
+    [SerializeField] private GameObject levelsPopup;
+    [SerializeField]private GameObject levelsButton;
+
+    public void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            // set the instance
+            Instance = this;
+        }
+    }
+
+    public void PlayButton(int level)
+    {
+        // load scene
+        GameManager.Instance.currentLevel = level;
+        SceneManager.LoadScene("SampleScene");
+        Debug.Log("Sample Scene is loaded with level " + level);
+    }
+    public void LevelsButton()
+    {
+        // levels popup TODO: add animations here
+        levelsButton.SetActive(false);
+        levelsPopup.SetActive(true);
+        LevelsPopupHandler.Instance.SetLevelsPopup();
+    }
+    
+}
