@@ -9,22 +9,10 @@ public class CellObject : MonoBehaviour
     // because we can not attach an abstract class to an object
     public Cell cell;
 
-    public void Start()
+    // add dont destroy on load
+    public void Awake()
     {
-        // set the cell prefab list from the GameManager
-        cell.cellPrefabList = GameManager.Instance.cellPrefabList;
-    }
-    
-    
-
-    public void SwipeRight()
-    {
-        
-    }
-
-    public void SwipeLeft()
-    {
-        
+        DontDestroyOnLoad(this);
     }
 }
 
@@ -35,14 +23,23 @@ public abstract class Cell
     */
     // Note that this array should contain the cell prefabs in the order of red, green, blue, yellow.
     public List<GameObject> cellPrefabList;
-    protected GameObject cellPrefab;        // the prefab of the cell
+    public GameObject cellPrefab;        // the prefab of the cell
     public Vector2 gridPos;            // the position of the cell in the grid
     
     public abstract int Score { get; }
+    
     public GameObject getCellPrefab()
     {
         // returns the cell prefab
         return cellPrefab;
+    }
+
+    public GameObject InstantiateCell(Vector3 position)
+    {
+        // instantiates the cell prefab
+        GameObject newObject =  GameObject.Instantiate(cellPrefab, position, Quaternion.identity);
+        newObject.name = position.ToString();
+        return newObject;
     }
 }
 
@@ -86,7 +83,7 @@ public class RedCell : Cell
     // constructor
     public RedCell()
     {
-        cellPrefab = cellPrefabList[0];
+        cellPrefab = GameManager.Instance.cellPrefabList[0];
     }
     public override int Score => 100;
 }
@@ -95,7 +92,7 @@ public class GreenCell : Cell
 {
     public GreenCell()
     {
-        cellPrefab = cellPrefabList[1];
+        cellPrefab = GameManager.Instance.cellPrefabList[1];
     }
     public override int Score => 150;
 }
@@ -104,7 +101,7 @@ public class BlueCell : Cell
 {
     public BlueCell()
     {
-        cellPrefab = cellPrefabList[2];
+        cellPrefab = GameManager.Instance.cellPrefabList[2];
     }
     public override int Score => 200;
 }
@@ -113,7 +110,7 @@ public class YellowCell : Cell
 {
     public YellowCell()
     {
-        cellPrefab = cellPrefabList[3];
+        cellPrefab = GameManager.Instance.cellPrefabList[3];
     }
     public override int Score => 250;
 

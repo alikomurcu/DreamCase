@@ -62,7 +62,6 @@ public class LevelsPopupHandler : MonoBehaviour
             // set the play button event
             Transform c1 = levelObject.transform.GetChild(1);    // this is the second child of the level object, i.e., play button
             c1.GetComponent<Button>().onClick.AddListener(delegate { ButtonHandller.Instance.PlayButton((int) level.Key); });       // when click play, go to PlayButton function
-            Debug.Log("Object created with name " + levelObject.name + " and parent name " + levelObject.transform.parent.name);
         }
     }
     

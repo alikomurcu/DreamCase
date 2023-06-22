@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     // it is a factory for creating the cells of the grid.
     public CellFactory cellFactory = new CellFactory();
     // Note that this array should contain the cell prefabs in the order of red, green, blue, yellow.
-    [SerializeField] public List<GameObject> cellPrefabList = new List<GameObject>(4);
+    [SerializeField] public List<GameObject> cellPrefabList;
     // handles the input of the player such as swipes and taps.
     public InputManager inputManager;
     // handles the game state such as current level, score, etc.
@@ -68,6 +68,14 @@ public class GameManager : MonoBehaviour
         // make sure before calling this method, currentLevel is set
         // set grid according to current level
         this.grid = LevelParser.Instance.ParseLevel(currentLevel);
-        
+    }
+
+    public void DestroyGrid()
+    {
+        foreach (GameObject child in grid.grid)
+        {
+            Destroy(child.gameObject);
+        }
+        grid.grid = null;
     }
 }

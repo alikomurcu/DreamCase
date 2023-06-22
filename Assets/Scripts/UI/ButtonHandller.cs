@@ -7,11 +7,14 @@ using UnityEngine.UI;
 
 public class ButtonHandller : MonoBehaviour
 {
+    /*
+     * This class is responsible from handling the button clicks, from ui.
+     */
     // Singleton instance
     public static ButtonHandller Instance { get; private set; }
     [SerializeField] private GameObject levelsPopup;
     [SerializeField]private GameObject levelsButton;
-
+    
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -29,8 +32,8 @@ public class ButtonHandller : MonoBehaviour
     {
         // load scene
         GameManager.Instance.currentLevel = level;
-        GameManager.Instance.SetGrid();
         SceneManager.LoadScene("SampleScene");
+        GameManager.Instance.SetGrid();
         Debug.Log("Sample Scene is loaded with level " + level);
     }
     public void LevelsButton()
@@ -39,6 +42,14 @@ public class ButtonHandller : MonoBehaviour
         levelsButton.SetActive(false);
         levelsPopup.SetActive(true);
         LevelsPopupHandler.Instance.SetLevelsPopup();
+    }
+    
+    public void MainMenuButton()
+    {
+        // main menu TODO: add animations here
+        GameManager.Instance.DestroyGrid();
+        SceneManager.LoadScene("MainScene");
+        
     }
     
 }
