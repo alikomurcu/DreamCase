@@ -34,7 +34,6 @@ public class ButtonHandller : MonoBehaviour
         GameManager.Instance.currentLevel = level;
         SceneManager.LoadScene("SampleScene");
         GameManager.Instance.SetGrid();
-        Debug.Log("Sample Scene is loaded with level " + level);
     }
     public void LevelsButton()
     {

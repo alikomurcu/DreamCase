@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using TMPro;
 
 
 [System.Serializable]
@@ -20,6 +21,8 @@ public class GameManager : MonoBehaviour
     // handles the game state such as current level, score, etc.
     public GameState gameState = new GameState();
     public int currentLevel = 0;
+    public int currentScore = 0;
+    public int currentMoveCount = 0;
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -81,7 +84,28 @@ public class GameManager : MonoBehaviour
     
     public void HandleSwipe(Vector2 position, SwipeDirection direction)
     {
-        grid.FindSwipedCell(position);
-        grid.Swipe(position, direction);
+        Vector2 gridPos = grid.FindSwipedCell(position);
+        grid.Swipe(gridPos, direction);
+        
+    }
+
+    public void SetMoveCount(int move)
+    {
+        currentMoveCount = move;
+    }
+
+    public void DecrementMoveCount()
+    {
+        currentMoveCount--;
+        GameUI.Instance.moveCount.GetComponent<TMP_Text>().text = currentMoveCount.ToString();
+    }
+    public void IncrementScore(int score)
+    {
+        currentScore += score;
+        GameUI.Instance.score.GetComponent<TMP_Text>().text = currentScore.ToString();
+    }
+    public void LevelFinished()
+    {
+        
     }
 }

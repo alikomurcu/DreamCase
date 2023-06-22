@@ -40,6 +40,7 @@ public class LevelParser : MonoBehaviour
         // get the number of moves
         string[] movesstr = lines[3].Split(' ');
         int moves = int.Parse(movesstr[1]);
+        GameManager.Instance.SetMoveCount(moves);
         // create the grid
         Grid grid = new Grid();
         // fill the grid

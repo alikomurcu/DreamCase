@@ -2493,6 +2493,7 @@ GameObject:
   - component: {fileID: 6298492619912962734}
   - component: {fileID: 6298492619912962735}
   - component: {fileID: 6298492619912962736}
+  - component: {fileID: 6298492619912962737}
   m_Layer: 0
   m_Name: ---Managers---
   m_TagString: Untagged
@@ -2532,10 +2533,13 @@ MonoBehaviour:
   - {fileID: 8043142982536977824, guid: a6d3b40941c659248ab8450046d305ed, type: 3}
   - {fileID: 1684318365981334527, guid: e71a0404c8fa0ba42bc7d84c779defcc, type: 3}
   - {fileID: 8478858829863535553, guid: a51ef1dac5f7994479425d83153ba532, type: 3}
+  - {fileID: 3739530026707748075, guid: 1312b48b68c727246a7de14c3203d261, type: 3}
   inputManager: {fileID: 0}
   gameState:
     isGameCompleted: 0
   currentLevel: 0
+  currentScore: 0
+  currentMoveCount: 0
 --- !u!114 &6298492619912962733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2589,3 +2593,15 @@ MonoBehaviour:
   scrollViewport: {fileID: 1373068648}
   scrollContent: {fileID: 50514084}
   levelPrefab: {fileID: 8035792550827265849, guid: 82d5e8c57c0ac5948ba9d3efcfc3a077, type: 3}
+--- !u!114 &6298492619912962737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6298492619912962721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a6fd6fcbd039f74990f77833c057ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

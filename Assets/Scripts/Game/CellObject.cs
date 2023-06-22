@@ -14,6 +14,34 @@ public class CellObject : MonoBehaviour
     {
         DontDestroyOnLoad(this);
     }
+
+    public void MoveCell(Vector2 move, int row)
+    {
+        // This method is responsible for moving the cell with animations object in the scene.
+        // If the cell is a tick cell, it should not move.
+        if (cell.GetType() == typeof(TickCell))
+            return;
+        IEnumerator coroutine = MoveWithAnimation(move, row);
+        StartCoroutine(coroutine);
+    }
+
+    IEnumerator MoveWithAnimation(Vector2 move, int row)
+    {
+        // move with time deltatime
+        float elapsedTime = 0;
+        float waitTime = 0.5f;
+        Vector3 startPosition = transform.position;
+        Vector3 endPosition = new Vector3(startPosition.x + move.x, startPosition.y + move.y, startPosition.z);
+        while (elapsedTime < waitTime)
+        {
+            elapsedTime += Time.deltaTime;
+            transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / waitTime);
+            yield return null;
+        }
+        transform.position = endPosition;
+        // check if the row is full after the animations
+        GameManager.Instance.grid.CheckRow(row);
+    }
 }
 
 public abstract class Cell
@@ -65,6 +93,10 @@ public class CellFactory
         {
             return new YellowCell();
         }
+        else if (color == "t")
+        {
+            return new TickCell();
+        }
         else
         {
             return null;
@@ -113,5 +145,13 @@ public class YellowCell : Cell
         cellPrefab = GameManager.Instance.cellPrefabList[3];
     }
     public override int Score => 250;
+}
 
+public class TickCell : Cell
+{
+    public TickCell()
+    {
+        cellPrefab = GameManager.Instance.cellPrefabList[4];
+    }
+    public override int Score => 0;
 }
