@@ -28,6 +28,16 @@ public class ButtonHandller : MonoBehaviour
         }
     }
 
+    public void OnEnable()
+    {
+        if (GameManager.Instance.prevLevelHighestScore)
+        {
+            GameManager.Instance.prevLevelHighestScore = false;
+            levelsButton.SetActive(false);
+            StartCoroutine("PressLevelButton");
+        }
+    }
+
     public void PlayButton(int level)
     {
         // load scene
@@ -48,7 +58,11 @@ public class ButtonHandller : MonoBehaviour
         // main menu TODO: add animations here
         GameManager.Instance.DestroyGrid();
         SceneManager.LoadScene("MainScene");
-        
     }
-    
+
+    IEnumerator PressLevelButton()
+    {
+        yield return new WaitForSeconds(0.5f);
+        LevelsButton();
+    }
 }

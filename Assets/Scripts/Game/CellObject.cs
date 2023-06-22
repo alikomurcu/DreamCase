@@ -41,6 +41,7 @@ public class CellObject : MonoBehaviour
         transform.position = endPosition;
         // check if the row is full after the animations
         GameManager.Instance.grid.CheckRow(row);
+        GameManager.Instance.grid.CheckGrid();
     }
 }
 

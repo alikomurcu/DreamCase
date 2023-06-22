@@ -39,7 +39,6 @@ public class LevelsPopupHandler : MonoBehaviour
 
     public void SetLevelsPopup()
     {
-        StartCoroutine("Wait1Second");
         Debug.Log("Levels popup set.");
         // Sets the level popup according to the size of the levels dictionary,
         // i.e. it updaates the scroll view content if online levels downloaded.
@@ -57,20 +56,23 @@ public class LevelsPopupHandler : MonoBehaviour
             // Select the children and set them accordingly
             // set the text
             Transform c0 = levelObject.transform.GetChild(0);    // this is the first child of the level object, i.e., text
-            c0.GetComponent<TMP_Text>().text = levelObject.name + " - Moves" + 
+            c0.GetComponent<TMP_Text>().text = levelObject.name + 
                                                "\nHighest score: " + level.Value.Item2;
             // set the play button event
             Transform c1 = levelObject.transform.GetChild(1);    // this is the second child of the level object, i.e., play button
-            c1.GetComponent<Button>().onClick.AddListener(delegate { ButtonHandller.Instance.PlayButton((int) level.Key); });       // when click play, go to PlayButton function
+            if (GameManager.Instance.gameState.minLevel < level.Key)
+            {
+                // if the level is not unlocked, set the button to inactive
+                c1.GetComponent<Button>().interactable = false;
+                
+            }
+            else
+            {
+                // if the level is unlocked, set the button to active
+                c1.GetComponent<Button>().interactable = true;
+                c1.GetComponent<Button>().onClick.AddListener(delegate { ButtonHandller.Instance.PlayButton((int) level.Key); });       // when click play, go to PlayButton function
+            }
         }
     }
     
-    public IEnumerator Wait1Second()
-    {
-        // wait 1 second
-        Debug.Log("Coroutine started.");
-        yield return new WaitForSeconds(1);
-        
-
-    }
 }

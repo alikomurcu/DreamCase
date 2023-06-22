@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Newtonsoft.Json;
 
 
 [System.Serializable]
 public class GameState
 {
+    public int minLevel;
     // This class is responsible from storing the game state.
     public bool isGameCompleted;
     // A dictionary to save the level data, level:(isLocked, highest score)
@@ -35,7 +37,8 @@ public class GameSaveManager : MonoBehaviour
 
     public void SaveGameState(GameState gameState)
     {
-        string json = JsonUtility.ToJson(gameState);
+        string json = JsonConvert.SerializeObject( gameState );
+        // concatenate the json strings
         File.WriteAllText(SaveFilePath, json);
     }
 
@@ -44,7 +47,7 @@ public class GameSaveManager : MonoBehaviour
         if (File.Exists(SaveFilePath))
         {
             string json = File.ReadAllText(SaveFilePath);
-            return JsonUtility.FromJson<GameState>(json);
+            return JsonConvert.DeserializeObject<GameState>(json);
         }
 
         return null; // or return a default game state
