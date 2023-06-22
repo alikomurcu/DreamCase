@@ -24,6 +24,7 @@ public class InputManager : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
         // So, we will use the position - pressposition vector as the drag(swipe) direction
         Vector2 swipeStartPosition = mainCamera.ScreenToWorldPoint(eventData.pressPosition);
         Vector2 dragDirection = (eventData.position - eventData.pressPosition).normalized;
+        SwipeDirection swipeDirection;
         Debug.Log("Swipe Press Position in World Coordinates: " + swipeStartPosition);
         if (Mathf.Abs(dragDirection.x) > Mathf.Abs(dragDirection.y))
         {
@@ -31,13 +32,13 @@ public class InputManager : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
             if (dragDirection.x > 0)
             {
                 // if the drag direction is right
-                DragDirection = Vector2.right;
+                swipeDirection = SwipeDirection.Right;
                 Debug.Log("RIGHT");
             }
             else
             {
                 // if the drag direction is left
-                DragDirection = Vector2.left;
+                swipeDirection = SwipeDirection.Left;
                 Debug.Log("LEFT");
             }
         }
@@ -47,17 +48,17 @@ public class InputManager : MonoBehaviour, IDragHandler, IBeginDragHandler, IEnd
             if (dragDirection.y > 0)
             {
                 // if the drag direction is up
-                DragDirection = Vector2.up;
+                swipeDirection = SwipeDirection.Up;
                 Debug.Log("UP");
             }
             else
             {
                 // if the drag direction is down
-                DragDirection = Vector2.down;
+                swipeDirection = SwipeDirection.Down;
                 Debug.Log("DOWN");
             }
         }
-        
+        GameManager.Instance.HandleSwipe(swipeStartPosition, swipeDirection);
     }
 
     public void OnDrag(PointerEventData eventData)

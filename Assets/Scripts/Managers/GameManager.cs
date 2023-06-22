@@ -78,4 +78,10 @@ public class GameManager : MonoBehaviour
         }
         grid.grid = null;
     }
+    
+    public void HandleSwipe(Vector2 position, SwipeDirection direction)
+    {
+        grid.FindSwipedCell(position);
+        grid.Swipe(position, direction);
+    }
 }
